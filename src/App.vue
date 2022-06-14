@@ -38,15 +38,22 @@ export default {
   methods: {
     fetchWeather(e) {
       if(e.key == "Enter") {
-        fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
-          .then(res => {
-            return res.json();
-          }).then(this.setResults);
+        if(this.query.length > 0) {
+          fetch(`${this.url_base}weather?q=${this.query}&units=metric&APPID=${this.api_key}`)
+            .then(res => {
+              return res.json();
+            })
+            .then(this.setResults);
+        }
+        
       }
     },
     setResults(results) {
-      this.weather = results;
-      console.log(this.weather);
+      if(results.message == undefined) {
+        this.weather = results;
+        this.query = "";
+      }
+      console.log(results);
     },
     isCloudy() {
       if ("Clouds" == this.weather.weather[0].main) {
@@ -108,7 +115,7 @@ export default {
       let month = months[d.getMonth()];
       let year = d.getFullYear();
 
-      return `${day}, ${date} ${month} ${year}`;
+      return `${day}, ${month} ${date}, ${year}`;
     }
   }
 }
