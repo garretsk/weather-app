@@ -1,5 +1,5 @@
 <template>
-  <div id="app" :class="typeof weather.main != 'undefined' && weather.main.temp > 16 ? 'warm' : ''">
+  <div id="app" :class="typeof weather.main != 'undefined' && isCloudy() ? 'clouds' : ''">
     <main>
       <div class="search-box">
         <input 
@@ -46,8 +46,59 @@ export default {
     },
     setResults(results) {
       this.weather = results;
+      console.log(this.weather);
     },
-    getFormattedDate () {
+    isCloudy() {
+      if ("Clouds" == this.weather.weather[0].main) {
+        return true;
+      }
+      else if ("Rain" == this.weather.weather[0].main) {
+        return true;
+      }
+      else if ("Thunderstorm" == this.weather.weather[0].main) {
+        return true;
+      }
+      else if ("Drizzle" == this.weather.weather[0].main) {
+        return true;
+      }
+      else if ("Snow" == this.weather.weather[0].main) {
+        return true;
+      }
+      else if ("Mist" == this.weather.weather[0].main) {
+        return true;
+      }
+      else if ("Smoke" == this.weather.weather[0].main) {
+        return true;
+      }
+      else if ("Haze" == this.weather.weather[0].main) {
+        return true;
+      }
+      else if ("Dust" == this.weather.weather[0].main) {
+        return true;
+      }
+      else if ("Fog" == this.weather.weather[0].main) {
+        return true;
+      }
+      else if ("Sand" == this.weather.weather[0].main) {
+        return true;
+      }
+      else if ("Ash" == this.weather.weather[0].main) {
+        return true;
+      }
+      else if ("Squall" == this.weather.weather[0].main) {
+        return true;
+      }
+      else if ("Tornado" == this.weather.weather[0].main) {
+        return true;
+      }
+      else{
+        return false;
+      }
+    },
+    isSnowing() {
+      return false;
+    },
+    getFormattedDate() {
       let d = new Date();
       let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
       let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
@@ -75,14 +126,14 @@ body {
 }
 
 #app {
-  background-image: url('./assets/cold-bg.jpg');
+  background-image: url('./assets/clear-bg.jpg');
   background-size: cover;
   background-position: bottom;
   transition: 0.5s;
 }
 
-#app.warm {
-  background-image: url('./assets/warm-bg.jpg');
+#app.clouds {
+  background-image: url('./assets/clouds-bg.webp');
 }
 
 main {
